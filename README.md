@@ -1,6 +1,6 @@
-# Substitue Teacher Management
+# Attendance System AApp
 
-This repository contains the code which was used to build an app to aid institutional admins to allocate substitute faculties efficiently.
+This repository contains the code which was used to build an app to aid teachers record attendance efficiently.
 
 ## Table of contents
 
