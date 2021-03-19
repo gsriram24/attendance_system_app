@@ -1,4 +1,5 @@
 import 'package:attendance_system_app/providers/authProvider.dart';
+import 'package:attendance_system_app/providers/classesProvider.dart';
 import 'package:attendance_system_app/screens/HomeScreen.dart';
 import 'package:attendance_system_app/screens/LoginScreen.dart';
 import 'package:attendance_system_app/screens/SplashScreen.dart';
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<Auth>.value(
           value: Auth(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Classes(),
         ),
       ],
       child: Consumer<Auth>(
