@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() {
     final token = Provider.of<Auth>(context).token;
 
-    if (_isInit) {
+    if (_isInit && Provider.of<Classes>(context).teacherClasses.length == 0) {
       setState(() {
         _isLoading = true;
       });
@@ -81,7 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             customBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed('/class');
+                            },
                           ),
                         ),
                       ),
@@ -91,23 +93,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           teacherClasses[index].subjectName,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 22,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             letterSpacing: 1,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 65, left: 30),
+                        margin: EdgeInsets.only(top: 60, left: 30),
                         child: Text(
                           '${teacherClasses[index].semester.toString()} ${teacherClasses[index].section}',
                           style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                              letterSpacing: 1),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(
@@ -115,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           teacherClasses[index].branch,
                           style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.w600,
                               color: Colors.white70,
                               letterSpacing: 1),
