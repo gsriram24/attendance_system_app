@@ -1,3 +1,4 @@
+import 'package:attendance_system_app/providers/studentProvider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +19,11 @@ class Classes with ChangeNotifier {
   Dio dio = new Dio();
 
   Future<void> fetchAndSetTeacherClasses(token) async {
-    final List<ClassItem> loadedRequests = [];
     dio.options.headers["Authorization"] = "Bearer $token";
     try {
       final response = await dio
           .get('https://attendancesystemadmin.herokuapp.com/api/class/teacher');
       final data = response.data.toList();
-      print(data);
       data.forEach((item) => {
             teacherClasses.add(ClassItem(
                 item['_id'],
@@ -36,6 +35,34 @@ class Classes with ChangeNotifier {
           });
     } catch (error) {
       print(error.response);
+    }
+  }
+
+  Future<List<Student>> getStudentsOfClass(classId, token) async {
+    dio.options.headers["Authorization"] = "Bearer $token";
+    final List<Student> studentList = [];
+    try {
+      final response = await dio.get(
+          'https://attendancesystemadmin.herokuapp.com/api/student/byClass/$classId');
+
+      final data = response.data['students'];
+      data.forEach(
+        (item) => {
+          studentList.add(
+            Student(
+              item['_id'],
+              item['usn'],
+              item['fullName'],
+              item['email'],
+              item['classes'],
+              item['images'],
+            ),
+          )
+        },
+      );
+      return studentList;
+    } catch (error) {
+      print(error);
     }
   }
 }

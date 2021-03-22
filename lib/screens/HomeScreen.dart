@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             onTap: () {
-                              Navigator.of(context).pushReplacementNamed(
+                              Navigator.of(context).pushNamed(
                                   ClassScreen.routeName,
                                   arguments: teacherClasses[index]);
                             },
