@@ -1,5 +1,6 @@
 import 'package:attendance_system_app/providers/authProvider.dart';
 import 'package:attendance_system_app/providers/classesProvider.dart';
+import 'package:attendance_system_app/screens/ClassScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,16 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemCount: teacherClasses.length,
-              itemBuilder: (context, int index) {
-                return GestureDetector(
-                  onTap: () => {},
-                  child: Stack(
+          : Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.builder(
+                itemCount: teacherClasses.length,
+                itemBuilder: (context, int index) {
+                  return Stack(
                     children: [
                       Container(
-                        height: 140,
-                        margin: EdgeInsets.all(15),
+                        height: 160,
+                        margin: EdgeInsets.symmetric(vertical: 8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.transparent,
@@ -82,13 +83,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             onTap: () {
-                              Navigator.of(context).pushNamed('/class');
+                              Navigator.of(context).pushReplacementNamed(
+                                  ClassScreen.routeName,
+                                  arguments: teacherClasses[index]);
                             },
                           ),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 30, left: 30),
+                        margin: EdgeInsets.only(top: 25, left: 15),
                         width: 220,
                         child: Text(
                           teacherClasses[index].subjectName,
@@ -102,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 60, left: 30),
+                        margin: EdgeInsets.only(top: 55, left: 15),
                         child: Text(
                           '${teacherClasses[index].semester.toString()} ${teacherClasses[index].section}',
                           style: TextStyle(
@@ -113,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 125, left: 30),
+                        margin: EdgeInsets.only(top: 130, left: 15),
                         child: Text(
                           teacherClasses[index].branch,
                           style: TextStyle(
@@ -124,9 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
     );
   }

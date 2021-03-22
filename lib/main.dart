@@ -1,5 +1,6 @@
 import 'package:attendance_system_app/providers/authProvider.dart';
 import 'package:attendance_system_app/providers/classesProvider.dart';
+import 'package:attendance_system_app/screens/ClassScreen.dart';
 import 'package:attendance_system_app/screens/HomeScreen.dart';
 import 'package:attendance_system_app/screens/LoginScreen.dart';
 import 'package:attendance_system_app/screens/SplashScreen.dart';
@@ -39,7 +40,10 @@ class MyApp extends StatelessWidget {
                           ? SplashScreen()
                           : LoginScreen(),
                 ),
-          routes: {LoginScreen.routeName: (_) => LoginScreen()},
+          routes: {
+            LoginScreen.routeName: (_) => LoginScreen(),
+            ClassScreen.routeName: (_) => ClassScreen()
+          },
         ),
       ),
     );
