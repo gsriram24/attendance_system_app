@@ -1,3 +1,4 @@
+import 'package:attendance_system_app/providers/attendanceProvider.dart';
 import 'package:attendance_system_app/providers/studentProvider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -60,9 +61,35 @@ class Classes with ChangeNotifier {
           )
         },
       );
-      return studentList;
     } catch (error) {
       print(error);
     }
+    return studentList;
+  }
+
+  Future<List<Attendance>> getAttendanceOfClass(classId, token) async {
+    dio.options.headers["Authorization"] = "Bearer $token";
+    final List<Attendance> attendanceList = [];
+    try {
+      final response = await dio.get(
+          'https://attendancesystemadmin.herokuapp.com/api/attendance/byClass/$classId');
+
+      final data = response.data['attendance'];
+      data.forEach(
+        (item) => {
+          attendanceList.add(
+            Attendance(
+              item['_id'],
+              item['classId'],
+              item['absent'],
+              DateTime.parse(item['createdAt']),
+            ),
+          )
+        },
+      );
+    } catch (error) {
+      print(error);
+    }
+    return attendanceList;
   }
 }
