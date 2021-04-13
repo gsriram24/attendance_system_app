@@ -2,7 +2,10 @@ import 'package:attendance_system_app/providers/attendanceProvider.dart';
 import 'package:attendance_system_app/providers/authProvider.dart';
 import 'package:attendance_system_app/providers/classesProvider.dart';
 import 'package:attendance_system_app/providers/studentProvider.dart';
+import 'package:attendance_system_app/widgets/ClassScreen/AttendanceHistory.dart';
+import 'package:attendance_system_app/widgets/ClassScreen/ClassStats.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 class ClassScreen extends StatefulWidget {
@@ -66,79 +69,31 @@ class _ClassScreenState extends State<ClassScreen> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              children: [
-                SizedBox(
-                  height: 36,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 24,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Students',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 14,
-                            ),
-                            Text(
-                              studentList.length.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 36,
+                  ),
+                  ClassStats(studentList, attendanceList),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text(
+                    'History',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 28,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Classes',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 14,
-                            ),
-                            Text(
-                              attendanceList.length.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  AttendanceHistory(studentList, attendanceList),
+                ],
+              ),
             ),
     );
   }
