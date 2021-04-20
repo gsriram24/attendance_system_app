@@ -1,4 +1,4 @@
-# Attendance System AApp
+# Attendance System App
 
 This repository contains the code which was used to build an app to aid teachers record attendance efficiently.
 
