@@ -3,6 +3,7 @@ import 'package:attendance_system_app/providers/classesProvider.dart';
 import 'package:attendance_system_app/screens/ClassScreen.dart';
 import 'package:attendance_system_app/screens/HomeScreen.dart';
 import 'package:attendance_system_app/screens/LoginScreen.dart';
+import 'package:attendance_system_app/screens/NewAttendanceScreen.dart';
 import 'package:attendance_system_app/screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
                 ),
           routes: {
             LoginScreen.routeName: (_) => LoginScreen(),
-            ClassScreen.routeName: (_) => ClassScreen()
+            ClassScreen.routeName: (_) => ClassScreen(),
+            NewAttendanceScreen.routeName: (_) => NewAttendanceScreen()
           },
         ),
       ),

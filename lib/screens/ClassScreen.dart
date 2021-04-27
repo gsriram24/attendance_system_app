@@ -2,6 +2,7 @@ import 'package:attendance_system_app/providers/attendanceProvider.dart';
 import 'package:attendance_system_app/providers/authProvider.dart';
 import 'package:attendance_system_app/providers/classesProvider.dart';
 import 'package:attendance_system_app/providers/studentProvider.dart';
+import 'package:attendance_system_app/screens/NewAttendanceScreen.dart';
 import 'package:attendance_system_app/widgets/ClassScreen/AttendanceHistory.dart';
 import 'package:attendance_system_app/widgets/ClassScreen/ClassStats.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,10 @@ class _ClassScreenState extends State<ClassScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(NewAttendanceScreen.routeName,
+                  arguments: classDetails);
+            },
           ),
         ],
       ),
