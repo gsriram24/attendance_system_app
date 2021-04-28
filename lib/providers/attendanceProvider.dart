@@ -33,4 +33,21 @@ class AttendanceProvider with ChangeNotifier {
       print(error);
     }
   }
+
+  Future<bool> enterAttendanceData(absent, classId, token) async {
+    dio.options.headers["Authorization"] = "Bearer $token";
+    try {
+      final response = await dio.post(
+        'https://attendancesystemadmin.herokuapp.com/api/attendance/register',
+        data: {
+          "classId": classId,
+          "absent": absent,
+        },
+      );
+      return true;
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
 }

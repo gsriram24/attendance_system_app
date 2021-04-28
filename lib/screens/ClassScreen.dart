@@ -62,13 +62,15 @@ class _ClassScreenState extends State<ClassScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(NewAttendanceScreen.routeName,
-                  arguments: {
-                    'classDetails': classDetails,
-                    'studentList': studentList
-                  });
-            },
+            onPressed: _isLoading
+                ? null
+                : () {
+                    Navigator.of(context)
+                        .pushNamed(NewAttendanceScreen.routeName, arguments: {
+                      'classDetails': classDetails,
+                      'studentList': studentList
+                    });
+                  },
           ),
         ],
       ),

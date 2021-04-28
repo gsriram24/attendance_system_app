@@ -16,12 +16,13 @@ class ClassItem {
 }
 
 class Classes with ChangeNotifier {
-  final List<ClassItem> teacherClasses = [];
+  List<ClassItem> teacherClasses = [];
   Dio dio = new Dio();
 
   Future<void> fetchAndSetTeacherClasses(token) async {
     dio.options.headers["Authorization"] = "Bearer $token";
     try {
+      teacherClasses = [];
       final response = await dio
           .get('https://attendancesystemadmin.herokuapp.com/api/class/teacher');
       final data = response.data.toList();

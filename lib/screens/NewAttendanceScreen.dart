@@ -61,14 +61,17 @@ class _NewAttendanceScreenState extends State<NewAttendanceScreen> {
                     setState(() {
                       _isLoading = true;
                     });
-                    final presentList = await Provider.of<AttendanceProvider>(
-                            context,
-                            listen: false)
-                        .getPresentStudentsFromPhoto(
-                      images,
-                      classDetails.id,
-                      token,
-                    );
+                    var presentList = [];
+                    if (images.length > 0) {
+                      presentList = await Provider.of<AttendanceProvider>(
+                              context,
+                              listen: false)
+                          .getPresentStudentsFromPhoto(
+                        images,
+                        classDetails.id,
+                        token,
+                      );
+                    }
                     setState(() {
                       _isLoading = false;
                     });
