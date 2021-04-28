@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:attendance_system_app/providers/attendanceProvider.dart';
 import 'package:attendance_system_app/providers/authProvider.dart';
 import 'package:attendance_system_app/providers/classesProvider.dart';
+import 'package:attendance_system_app/screens/EditAttendanceScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +44,9 @@ class _NewAttendanceScreenState extends State<NewAttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final classDetails = ModalRoute.of(context).settings.arguments as ClassItem;
+    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    final classDetails = arguments['classDetails'];
+    final studentList = arguments['studentList'];
     final token = Provider.of<Auth>(context).token;
 
     return Scaffold(
@@ -69,7 +72,12 @@ class _NewAttendanceScreenState extends State<NewAttendanceScreen> {
                     setState(() {
                       _isLoading = false;
                     });
-                    print(presentList);
+                    Navigator.of(context)
+                        .pushNamed(EditAttendancecScreen.routeName, arguments: {
+                      'classDetails': classDetails,
+                      'studentList': studentList,
+                      'presentList': presentList
+                    });
                   },
           ),
         ],

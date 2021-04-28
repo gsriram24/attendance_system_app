@@ -64,7 +64,10 @@ class _ClassScreenState extends State<ClassScreen> {
             icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.of(context).pushNamed(NewAttendanceScreen.routeName,
-                  arguments: classDetails);
+                  arguments: {
+                    'classDetails': classDetails,
+                    'studentList': studentList
+                  });
             },
           ),
         ],
