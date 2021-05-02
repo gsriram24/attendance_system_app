@@ -77,6 +77,7 @@ class _NewAttendanceScreenState extends State<NewAttendanceScreen> {
                     });
                     Navigator.of(context)
                         .pushNamed(EditAttendancecScreen.routeName, arguments: {
+                      'isNew': true,
                       'classDetails': classDetails,
                       'studentList': studentList,
                       'presentList': presentList

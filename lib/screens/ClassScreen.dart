@@ -100,7 +100,7 @@ class _ClassScreenState extends State<ClassScreen> {
                   SizedBox(
                     height: 16,
                   ),
-                  AttendanceHistory(studentList, attendanceList),
+                  AttendanceHistory(studentList, attendanceList, classDetails),
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:attendance_system_app/providers/attendanceProvider.dart';
 import 'package:attendance_system_app/providers/authProvider.dart';
+import 'package:attendance_system_app/screens/ClassScreen.dart';
 import 'package:attendance_system_app/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,8 @@ class EditAttendancecScreen extends StatefulWidget {
 class _EditAttendancecScreenState extends State<EditAttendancecScreen> {
   var _isLoading = false;
 
-  void addAttendance(classId, presentList, studentList) async {
+  void addAttendance(
+      classDetails, presentList, studentList, isNew, attendanceId) async {
     final token = Provider.of<Auth>(context, listen: false).token;
     setState(() {
       _isLoading = true;
@@ -22,18 +24,27 @@ class _EditAttendancecScreenState extends State<EditAttendancecScreen> {
     final studentIdList = studentList.map((s) => s.id);
     final List absentList =
         studentIdList.where((s) => !presentList.contains(s)).toList();
-    final bool success =
-        await Provider.of<AttendanceProvider>(context, listen: false)
+    final bool success = isNew
+        ? await Provider.of<AttendanceProvider>(context, listen: false)
             .enterAttendanceData(
-      absentList,
-      classId,
-      token,
-    );
+            absentList,
+            classDetails.id,
+            token,
+          )
+        : await Provider.of<AttendanceProvider>(context, listen: false)
+            .editAttendanceData(
+            attendanceId,
+            absentList,
+            token,
+          );
     setState(() {
       _isLoading = false;
     });
     if (success) {
-      Navigator.of(context).popUntil(ModalRoute.withName('/'));
+      isNew
+          ? Navigator.of(context).popUntil(ModalRoute.withName('/'))
+          : Navigator.of(context).pushReplacementNamed(ClassScreen.routeName,
+              arguments: classDetails);
     }
   }
 
@@ -43,16 +54,18 @@ class _EditAttendancecScreenState extends State<EditAttendancecScreen> {
     final classDetails = arguments['classDetails'];
     final studentList = arguments['studentList'];
     var presentList = arguments['presentList'];
+    var isNew = arguments['isNew'];
+    var attendanceId = arguments['attendanceId'];
     return Scaffold(
       appBar: AppBar(
         title: Text(classDetails.subjectName),
         actions: [
           IconButton(
-            icon: const Icon(Icons.check),
+            icon: const Icon(Icons.save),
             onPressed: _isLoading
                 ? null
-                : () =>
-                    addAttendance(classDetails.id, presentList, studentList),
+                : () => addAttendance(classDetails, presentList, studentList,
+                    isNew, attendanceId),
           ),
         ],
       ),
