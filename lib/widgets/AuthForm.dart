@@ -1,6 +1,7 @@
 import 'package:attendance_system_app/providers/authProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
 class AuthForm extends StatefulWidget {
   @override
@@ -11,15 +12,32 @@ class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
   String _userEmail;
   String _userPassword;
+  bool isLoading = false;
 
   void _trySubmit() async {
     final isValid = _formKey.currentState.validate();
+
     FocusScope.of(context).unfocus();
     if (isValid) {
       _formKey.currentState.save();
+      setState(() {
+        isLoading = true;
+      });
+      try {
+        await Provider.of<Auth>(context, listen: false)
+            .login(_userEmail, _userPassword);
+      } catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(json.decode(error.response.toString())['message']),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
     }
-    await Provider.of<Auth>(context, listen: false)
-        .login(_userEmail, _userPassword);
   }
 
   @override
@@ -92,13 +110,15 @@ class _AuthFormState extends State<AuthForm> {
                   const SizedBox(
                     height: 36.0,
                   ),
-                  ElevatedButton(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text('Login'),
-                    ),
-                    onPressed: _trySubmit,
-                  ),
+                  isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : ElevatedButton(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text('Login'),
+                          ),
+                          onPressed: _trySubmit,
+                        ),
                 ],
               ),
             ),

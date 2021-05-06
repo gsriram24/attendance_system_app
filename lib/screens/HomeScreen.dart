@@ -1,6 +1,7 @@
 import 'package:attendance_system_app/providers/authProvider.dart';
 import 'package:attendance_system_app/providers/classesProvider.dart';
 import 'package:attendance_system_app/screens/ClassScreen.dart';
+import 'package:attendance_system_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Classes'),
       ),
+      drawer: AppDrawer(),
       body: _isLoading || teacherClasses == null
           ? Center(
               child: CircularProgressIndicator(),
@@ -122,10 +124,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           teacherClasses[index].branch,
                           style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white70,
-                              letterSpacing: 1),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white70,
+                            letterSpacing: 1,
+                          ),
                         ),
                       ),
                     ],
