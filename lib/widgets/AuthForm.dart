@@ -27,11 +27,17 @@ class _AuthFormState extends State<AuthForm> {
         await Provider.of<Auth>(context, listen: false)
             .login(_userEmail, _userPassword);
       } catch (error) {
+        print(error);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(json.decode(error.response.toString())['message']),
+            content: Text(json.decode(error.response.toString())
+                ? json.decode(error.response.toString())['message']
+                : 'An unknown error occured'),
           ),
         );
+        setState(() {
+          isLoading = true;
+        });
       }
 
       setState(() {
