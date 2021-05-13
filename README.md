@@ -2,6 +2,8 @@
 
 This repository contains the code which was used to build an app to aid teachers record attendance efficiently.
 
+Find the repository for the Face Recognition algorithm [here](https://github.com/sgcuber24/attendance_system_face_recognition_api)
+
 ## Table of contents
 
 - [Requirements to run the app](#requirements)
