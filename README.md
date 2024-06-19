@@ -4,6 +4,11 @@ This repository contains the code which was used to build an app to aid teachers
 
 Find the repository for the Face Recognition algorithm [here](https://github.com/sgcuber24/attendance_system_face_recognition_api)
 
+Please note: For this to work and login to work, you would require both the admin panel and the node.js backend. Please find the repositories below. 
+
+[Backend](https://github.com/Josh551/attendance-system-backend)
+[Admin Panel](https://github.com/gsriram24/attendance-system-react)
+
 ## Table of contents
 
 - [Requirements to run the app](#requirements)
